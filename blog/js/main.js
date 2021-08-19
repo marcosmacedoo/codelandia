@@ -21,7 +21,7 @@ const news = [
   },
 ];
 
-const $listNews = document.querySelector('.list-news')
+let $listNews = document.querySelector('.list-news')
 
 window.addEventListener('load', () => {
   news.forEach(itemNews => {
@@ -63,18 +63,62 @@ window.addEventListener('load', () => {
   })
 })
 
-/*
+
 let newsSought = ''
 const $inputSearchNews = document.querySelector('#search-news')
 
 $inputSearchNews.addEventListener('input', (event) => {
+  $listNews.remove()
+
   newsSought = event.target.value.toLowerCase()
 
   const filteredNews = news.filter(itemNews => {
-    return !itemNews.title.toLowerCase().includes(newsSought)
+    return itemNews.title.toLowerCase().includes(newsSought)
+  })
+
+  $listNews = document.createElement('ul')
+  $listNews.classList.add('list-news')
+
+  document.querySelector('main > .container').appendChild($listNews)
+
+  filteredNews.forEach(itemNews => {
+    const $li = document.createElement('li')
+
+    const $article = document.createElement('article')
+    $article.classList.add('card-news')
+
+    const $header = document.createElement('header')
+
+    const $span = document.createElement('span')
+    $span.innerText = '02 de jul, 2021'
+
+    const $button = document.createElement('button')
+    $button.id = 'button-like'
+
+    const $img = document.createElement('img')
+    $img.src = './assets/heart.svg'
+    $img.alt = 'Botão de like'
+
+    $button.appendChild($img)
+
+    $header.appendChild($span)
+    $header.appendChild($button)
+
+    const $h3 = document.createElement('h3')
+    $h3.innerText = itemNews.title
+
+    const $p = document.createElement('p')
+    $p.innerText = itemNews.description
+
+    $article.appendChild($header)
+    $article.appendChild($h3)
+    $article.appendChild($p)
+
+    $li.appendChild($article)
+
+    $listNews.appendChild($li)
   })
 })
-*/
 
 
 window.addEventListener('load', () => {
